@@ -94,6 +94,7 @@ int main() {
     cout << endl;
 
     list3.sort(); // This will sort the list3 in the ascending order.
+    // list3.sort(greater<int>()); // This will sort the list3 in the decending order.
     cout << "The list after sorting the list3 is : " << endl;
     // 1 2 3 4 6 7 8 9
     for(int i : list3) {

@@ -6,6 +6,7 @@ void printQueue(queue<int> q) {
         cout << q.front() << " ";
         q.pop();
     }
+    cout << endl;
 }
 
 int main() {

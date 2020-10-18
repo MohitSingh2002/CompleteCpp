@@ -6,7 +6,10 @@
         "ostream": "cpp",
         "valarray": "cpp",
         "list": "cpp",
-        "new": "cpp"
+        "new": "cpp",
+        "deque": "cpp",
+        "string": "cpp",
+        "vector": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
