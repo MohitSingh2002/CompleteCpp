@@ -9,6 +9,8 @@ int main() {
     for(int i=1;i<=5;i++) {
         list.addLast(i);
     }
+
+    // list.reverseList();
     for(int i=6;i<=10;i++) {
         list.addFirst(i);
     }

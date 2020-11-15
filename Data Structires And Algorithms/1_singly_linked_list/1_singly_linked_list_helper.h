@@ -134,4 +134,46 @@ class CustomList {
             return false;
         }
 
+        void reverseList() {
+            Node *current = head;
+            Node *prev = NULL;
+            Node *next = NULL;
+            while(current != NULL) {
+                next = current->next;
+                current->next = prev;
+                prev = current;
+                current = next;
+            }
+            head = prev;
+        }
+
+        void removeDuplicates() {
+            Node *temp = head;
+            Node *current = head;
+            while(temp != NULL && temp->next != NULL) {
+                if(temp->data == temp->next->data) {
+                    current = temp->next->next;
+                    temp->next = current;
+                } else {
+                    temp = temp->next;
+                }
+            }
+        }
+
+        void removeDuplicatesFromUnsortedList() {
+            unordered_set<int> u;
+            Node *temp = head;
+            Node *prev = NULL;
+            while(temp != NULL) {
+                if(u.find(temp->data) != u.end()) {
+                    prev->next = temp->next;
+                    // temp->next = NULL;
+                } else {
+                    u.insert(temp->data);
+                    prev = temp;
+                }
+                temp = temp->next;
+            }
+        }
+
 };
