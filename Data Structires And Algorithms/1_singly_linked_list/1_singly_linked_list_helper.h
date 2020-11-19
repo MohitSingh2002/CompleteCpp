@@ -176,4 +176,61 @@ class CustomList {
             }
         }
 
+        void lastToFirst() {
+            Node *temp = head;
+            Node *prev = NULL;
+            while(temp->next != NULL) {
+                prev = temp;
+                temp = temp->next;
+            }
+            prev->next = NULL;
+            temp->next = head;
+            head = temp;
+        }
+
+        // void addOne() {
+        //     int total = 0;
+        //     Node *temp = head;
+        //     while(temp != NULL) {
+        //         total += temp->data;
+        //         if(temp->next == NULL) {
+        //             total++;
+        //         }
+        //         temp = temp->next;
+        //     }
+        //     head->data = total;
+        //     head->next = NULL;
+        // }
+        
+        // void reverseWithGap(int k) {
+        //     Node *temp = head;
+        //     Node *temp1 = head;
+        //     for(int i = 0; i < displayLength(); i+=4) {
+        //         for(int j = 0; j < 3; j++) {
+        //             temp = temp->next;
+        //         }
+
+        //     }
+        // }
+
+        void deleteNodesHavingGreaterValueOnRight() {
+            Node *temp = head;
+            while(temp != NULL) {
+                if(temp->data > temp->next->data) {
+                    temp->next = temp->next->next;
+                }
+                temp = temp->next;
+            }            
+        }
+
+        long long listToInt() {
+            string str;
+            Node *temp = head;
+            while(temp != NULL) {
+                str.push_back(temp->data + '0');
+                temp = temp->next;
+            }
+            return stoi(str);
+        }
+
 };

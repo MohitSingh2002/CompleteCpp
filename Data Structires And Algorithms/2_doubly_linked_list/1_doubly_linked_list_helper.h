@@ -127,4 +127,34 @@ class DoublyLinkedList {
             return false;
         }
 
+        // void reverseList() {
+        //     Node *current = head;
+        //     Node *p = NULL;
+        //     Node *n = NULL;
+        //     while(current != NULL) {
+        //         n = current->next;
+        //         current->next = p;
+        //         p->next = current;
+        //         n->previous = NULL;
+        //         p = current;
+        //         current = n;
+        //     }
+        //     head = p;
+        // }
+
+        void allPairsWithSum(int x) {
+            Node *temp1 = head;
+            Node *temp2 = head;
+            while(temp2->next != NULL) {
+                temp2 = temp2->next;
+            }
+            while(temp1 != NULL) {
+                if((temp1->data + temp2->data) == x) {
+                    cout << "(" << temp1->data << ", " << temp2->data << ")" << endl;
+                }
+                temp1 = temp1->next;
+                temp2 = temp2->previous;
+            }
+        }
+
 };
