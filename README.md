@@ -20,3 +20,4 @@ It consists of basics, oops concept and dsa.
   5. [queue](https://github.com/MohitSinghFlutter/CompleteCpp/tree/master/Standard%20Template%20Library/5_queue)
   6. [pair](https://github.com/MohitSinghFlutter/CompleteCpp/tree/master/Standard%20Template%20Library/6_pair)
   7. [tuple](https://github.com/MohitSinghFlutter/CompleteCpp/tree/master/Standard%20Template%20Library/7_tuple)
+  8. [unordered_set](https://github.com/MohitSinghFlutter/CompleteCpp/tree/master/Standard%20Template%20Library/8_unordered_set)
