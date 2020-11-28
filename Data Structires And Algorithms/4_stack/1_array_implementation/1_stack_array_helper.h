@@ -23,27 +23,27 @@ class StackArray {
         }
 
         void push(int value) {
-            // if(size() > capacity) {
-            //     // throw invalid_argument("Stack Full");
-            // }
+            if(nextIndex == capacity) {
+                cout << "Stack is full" << endl;
+                return;
+            }
             arr[nextIndex] = value;
             nextIndex++;
         }
 
         int top() {
-            // if(isEmpty()) {
-            //     // throw invalid_argument("Stack Empty");
-            //     return -1;
-            // }
+            if(isEmpty()) {
+                cout << "Stack Empty" << endl;
+                return -1;
+            }
             return arr[nextIndex - 1];
         }
 
         int pop() {
-            // if(isEmpty()) {
-            //     throw invalid_argument("Stack Empty");
-            //     return -1;
-            // }
-            // nextIndex--;
+            if(isEmpty()) {
+                cout << "Stack Empty" << endl;
+                return -1;
+            }
             nextIndex--;
             return arr[nextIndex];
         }
