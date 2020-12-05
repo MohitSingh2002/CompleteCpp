@@ -7,8 +7,8 @@ It consists of basics, oops concept and dsa.
 
 * Data Structures and Algorithms :-
   1. [Linked List](https://github.com/MohitSinghFlutter/CompleteCpp/tree/master/Data%20Structires%20And%20Algorithms/1_linked_list)
-  2. [Stack](https://github.com/MohitSinghFlutter/CompleteCpp/tree/master/Data%20Structires%20And%20Algorithms/4_stack)
-  3. [Queue](https://github.com/MohitSinghFlutter/CompleteCpp/tree/master/Data%20Structires%20And%20Algorithms/5_queue)
+  2. [Stack](https://github.com/MohitSinghFlutter/CompleteCpp/tree/master/Data%20Structires%20And%20Algorithms/2_stack)
+  3. [Queue](https://github.com/MohitSinghFlutter/CompleteCpp/tree/master/Data%20Structires%20And%20Algorithms/3_queue)
   
 * Standard Template Library :-
   1. [vector](https://github.com/MohitSinghFlutter/CompleteCpp/tree/master/Standard%20Template%20Library/1_vector)
