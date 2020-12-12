@@ -2,16 +2,16 @@
 #include"1_trees_helper.h"
 using namespace std;
 
-void deleteTree(TreeNode<int> *root);
-// void postorder(TreeNode<int>*);
-void preorder(TreeNode<int>*);
-int leafNodesInTheTree(TreeNode<int>*);
-void printAtLevelK(TreeNode<int>*, int);
-// int heigthOfTree(TreeNode<int> *root);
-int lengthOfTree(TreeNode<int>*);
-TreeNode<int>* takeInputLevelWise();
-TreeNode<int>* takeInput();
 void printTree(TreeNode<int>*);
+TreeNode<int>* takeInput();
+TreeNode<int>* takeInputLevelWise();
+int lengthOfTree(TreeNode<int>*);
+// int heigthOfTree(TreeNode<int> *root);
+void printAtLevelK(TreeNode<int>*, int);
+int leafNodesInTheTree(TreeNode<int>*);
+void deleteTree(TreeNode<int> *root);
+void preorder(TreeNode<int>*);
+// void postorder(TreeNode<int>*);
 
 int main() {
 
@@ -34,26 +34,6 @@ int main() {
     return 0;
 }
 
-TreeNode<int>* takeInput() {
-    int value;
-    cout << "Enter data : ";
-    cin >> value;
-
-    TreeNode<int> *root = new TreeNode<int>(value);
-
-    int n;
-    cout << "Enter no. of children for " << value << " : ";
-    cin >> n;
-
-    for(int i = 0; i < n; i++) {
-        TreeNode<int> *child = takeInput();
-        root->children.push_back(child);
-    }
-
-    return root;
-
-}
-
 void printTree(TreeNode<int> *root) {
 
     if(root == NULL) {
@@ -72,6 +52,27 @@ void printTree(TreeNode<int> *root) {
     for(int i=0;i<root->children.size();i++) {
         printTree(root->children[i]);
     }
+    
+}
+
+TreeNode<int>* takeInput() {
+    int value;
+    cout << "Enter data : ";
+    cin >> value;
+
+    TreeNode<int> *root = new TreeNode<int>(value);
+
+    int n;
+    cout << "Enter no. of children for " << value << " : ";
+    cin >> n;
+
+    for(int i = 0; i < n; i++) {
+        TreeNode<int> *child = takeInput();
+        root->children.push_back(child);
+    }
+
+    return root;
+
 }
 
 TreeNode<int>* takeInputLevelWise() {
