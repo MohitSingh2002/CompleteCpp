@@ -11,6 +11,10 @@ void inorder(BinaryTreeNode<int>*);
 void preorder(BinaryTreeNode<int>*);
 int height(BinaryTreeNode<int>*);
 int diameter(BinaryTreeNode<int>*);
+vector<int> preorderVector(BinaryTreeNode<int>*);
+vector<int> preorderVectorLevelWise(BinaryTreeNode<int>*);
+vector<int> reverseLevelOrder(BinaryTreeNode<int>*);
+BinaryTreeNode<int>* mirrorTree(BinaryTreeNode<int>*);
 
 // TREE : 1 2 3 4 5 6 7 -1 -1 8 9 -1 -1 11 12 -1 -1 10 -1 -1 -1 -1 13 -1 -1 -1 -1
 int main() {
@@ -32,6 +36,27 @@ int main() {
       cout << endl;
 
       cout << "Diameter of the tree is : " << diameter(root) << endl;
+
+      // vector<int> v = preorderVector(root);
+
+      // for(int i = 0; i < v.size(); i++) {
+      //       cout << v[i] << " ";
+      // }
+
+      // vector<int> v = preorderVectorLevelWise(root);
+
+      // for(int i = 0; i < v.size(); i++) {
+      //       cout << v[i] << " ";
+      // }
+
+      // vector<int> v = reverseLevelOrder(root);
+
+      // for(int i = 0; i < v.size(); i++) {
+      //       cout << v[i] << " ";
+      // }
+
+      // BinaryTreeNode<int> *newRoot = mirrorTree(root);
+      // printBinaryTreeLevelWise(newRoot);
 
       delete root;
       
@@ -163,4 +188,74 @@ int diameter(BinaryTreeNode<int> *root) {
       int option2 = diameter(root->left);
       int option3 = diameter(root->right);
       return max(option1, max(option2, option3));
+}
+
+vector<int> preorderVector(BinaryTreeNode<int> *root) {
+      if(root == NULL) return vector<int>();
+      vector<int> vResult;
+      vResult.push_back(root->data);
+      vector<int> vResultLeft = preorderVector(root->left);
+      vector<int> vResultRight = preorderVector(root->right);
+      for(int i = 0; i < vResultLeft.size(); i++) {
+            vResult.push_back(vResultLeft[i]);
+      }
+      for(int i = 0; i < vResultRight.size(); i++) {
+            vResult.push_back(vResultRight[i]);
+      }
+      return vResult;
+}
+
+vector<int> preorderVectorLevelWise(BinaryTreeNode<int> *root) {
+      if(root == NULL) return vector<int>();
+      vector<int> result;
+      result.push_back(root->data);
+      queue<BinaryTreeNode<int>*> q;
+      q.push(root);
+      while(!q.empty()) {
+            BinaryTreeNode<int> *front = q.front();
+            q.pop();
+            if(front->left != NULL) {
+                  q.push(front->left);
+                  result.push_back(front->left->data);
+            }
+            if(front->right != NULL) {
+                  q.push(front->right);
+                  result.push_back(front->right->data);
+            }
+      }
+      return result;
+}
+
+vector<int> reverseLevelOrder(BinaryTreeNode<int> *root) {
+      if (root == NULL) return vector<int>();
+      vector<int> result;
+      queue<BinaryTreeNode<int>*> q;
+      q.push(root);
+      stack<BinaryTreeNode<int>*> s;
+      s.push(root);
+      while(!q.empty()) {
+            BinaryTreeNode<int> *front = q.front();
+            q.pop();
+            if(front->right != NULL) {
+                  q.push(front->right);
+                  s.push(front->right);
+            }
+            if(front->left != NULL) {
+                  q.push(front->left);
+                  s.push(front->left);
+            }
+      }
+      while(!s.empty()) {
+            result.push_back(s.top()->data);
+            s.pop();
+      }
+      return result;
+}
+
+BinaryTreeNode<int>* mirrorTree(BinaryTreeNode<int> *root) {
+      if(root == NULL) return NULL;
+      BinaryTreeNode<int> *newRoot = new BinaryTreeNode<int>(root->data);
+      newRoot->left = mirrorTree(root->right);
+      newRoot->right = mirrorTree(root->left);
+      return newRoot;
 }
