@@ -27,6 +27,14 @@ bool isHeightBalanced(BinaryTreeNode<int>*);
 vector<int> printBoundary(BinaryTreeNode<int>*);
 vector<int> inorderVector(BinaryTreeNode<int>*);
 void toSumTree(BinaryTreeNode<int>*);
+int numberOfLeafNodes(BinaryTreeNode<int>*);
+void printAtLevelK(BinaryTreeNode<int>*, int);
+int numberOfNodesAtLevelK(BinaryTreeNode<int>*, int);
+bool checkAllLeafNodesAtSameLevel(BinaryTreeNode<int>*);
+// int allNodesAtLongestPath(BinaryTreeNode<int>*);
+int largestSubTreeSum(BinaryTreeNode<int>*);
+vector<int> printPathFromRootToParticularRoot(BinaryTreeNode<int>*, int);
+int lowestCommonAncestor(BinaryTreeNode<int>*, int, int);
 
 // TREE : 1 2 3 4 5 6 7 -1 -1 8 9 -1 -1 11 12 -1 -1 10 -1 -1 -1 -1 13 -1 -1 -1 -1
 int main() {
@@ -137,6 +145,40 @@ int main() {
       // cout << "Sum Tree Is : " << endl;
       // toSumTree(root);
       // printBinaryTreeLevelWise(root);
+
+      // cout << "Number of leaf nodes in the tree are : " << numberOfLeafNodes(root) << endl;
+
+      // cout << "Height of the tree is : " << height(root) << endl;
+
+      // printAtLevelK(root, height(root)-1);
+
+      // cout << "Number of nodes at last level is : " << numberOfNodesAtLevelK(root, height(root)-1) << endl;
+
+      // cout << "Is all leaf nodes are at same level : ";
+      // if(checkAllLeafNodesAtSameLevel(root)) cout << "YES" << endl;
+      // else cout << "NO" << endl;
+
+      // int a = allNodesAtLongestPath(root);
+      
+      // cout << "Largest sub tree sum is : " << largestSubTreeSum(root) << endl;
+      
+      // cout << "Mirror Tree Is : " << endl;
+      // BinaryTreeNode<int> *rootMirrorTree = mirrorTree(root);
+      // printBinaryTreeLevelWise(rootMirrorTree);
+
+      // lowestCommonAncestor(root, 9, 11);
+
+      // cout << "Path from root to certain node is : " << endl;
+      // vector<int> v9 = printPathFromRootToParticularRoot(root, 100);
+      // for(int i = 0; i < v9.size(); i++) {
+      //       cout << v9[i] << " ";
+      // }
+      // cout << endl;
+
+      // cout << "Lowest Common Ancester for 70 and 100 is : ";
+      // int lca = lowestCommonAncestor(root, 70, 100);
+      // if(lca != -1) cout << lca << endl;
+      // else cout << "No Common Ancestor" << endl;
 
       delete root;
       
@@ -512,4 +554,112 @@ int inSum(BinaryTreeNode<int> *root) {
 
 void toSumTree(BinaryTreeNode<int> *root) {
     int answer = inSum(root);
+}
+
+int numberOfLeafNodes(BinaryTreeNode<int> *root) {
+      if(root == NULL) return 0;
+      if((root->left == NULL) && (root->right == NULL)) return 1;
+      int answer = numberOfLeafNodes(root->left) + numberOfLeafNodes(root->right);
+      return answer;
+}
+
+void printAtLevelK(BinaryTreeNode<int> *root, int k) {
+      if(root == NULL) return;
+      if(k == 0) {
+            cout << root->data << endl;
+      }
+      printAtLevelK(root->left, k-1);
+      printAtLevelK(root->right, k-1);
+}
+
+int numberOfNodesAtLevelK(BinaryTreeNode<int> *root, int k) {
+      if(root == NULL) return 0;
+      if(k == 0) {
+            return 1;
+      }
+      int answer = numberOfNodesAtLevelK(root->left, k-1) + numberOfNodesAtLevelK(root->right, k-1);
+      return answer;
+}
+
+bool checkAllLeafNodesAtSameLevel(BinaryTreeNode<int> *root) {
+      return numberOfLeafNodes(root) == numberOfNodesAtLevelK(root, height(root) - 1);
+}
+
+// int allNodesAtLongestPath(BinaryTreeNode<int> *root) {
+//       if(root == NULL) {
+//             return 0;
+//       }
+//       cout << root->data << " ";
+//       return 1 + max(allNodesAtLongestPath(root->left), allNodesAtLongestPath(root->right));
+// }
+
+int findLargestSubTreeSum(BinaryTreeNode<int> *root, int & sum) {
+      if(root == NULL) return 0;
+      int currentSum = root->data + findLargestSubTreeSum(root->left, sum) + findLargestSubTreeSum(root->right, sum);
+      sum = max(sum, currentSum);
+      return currentSum;
+}
+
+int largestSubTreeSum(BinaryTreeNode<int> *root) {
+      int sum = INT_MIN;
+      findLargestSubTreeSum(root, sum);
+      return sum;
+}
+
+bool hasPath(BinaryTreeNode<int> *root, vector<int> & path, int node) {
+      if(root == NULL) return false;
+      path.push_back(root->data);
+      if(root->data == node) return true;
+      if(hasPath(root->left, path, node) || hasPath(root->right, path, node)) return true;
+      path.pop_back();
+      return false;
+}
+
+vector<int> printPathFromRootToParticularRoot(BinaryTreeNode<int> *root, int node) {
+      if(root == NULL) return vector<int>();
+      vector<int> v;
+      if(hasPath(root, v, node)) return v;
+      else return vector<int>();
+}
+
+int lowestCommonAncestor(BinaryTreeNode<int> *root, int a, int b) {
+
+      if(root == NULL) return -1;
+
+      vector<int> first;
+      vector<int> second;
+
+      if(!hasPath(root, first, a)|| !hasPath(root, second, b)) return -1;
+
+      bool isFound = false;
+
+      int i;
+      for(i = 0; i < first.size() && i < second.size(); i++) {
+            if(first[i] != second[i]) {
+                  isFound = true;
+                  break;
+            }
+      }
+
+      return first[i - 1];
+
+      // if(root == NULL) return;
+      // queue<BinaryTreeNode<int>*> q;
+      // q.push(root);
+      // vector<int> v;
+      // v.push_back(root->data);
+      // while(!q.empty()) {
+      //       BinaryTreeNode<int> *front = q.front();
+      //       q.pop();
+      //       if(front->data == a) break;
+      //       if(front->left != NULL) {
+      //             q.push(front->left);
+      //             v.push_back(front->left->data);
+      //       }
+      //       if(front->right != NULL) {
+      //             q.push(front->right);
+      //             v.push_back(front->right->data);
+      //       }
+      // }
+      // for(int i = 0; i < v.size(); i++) cout << v[i] << " ";
 }
