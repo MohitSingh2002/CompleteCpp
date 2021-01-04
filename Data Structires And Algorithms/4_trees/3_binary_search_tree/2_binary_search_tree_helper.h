@@ -36,6 +36,50 @@ class BST {
             else return isElementPresent(node->right, value);
       }
 
+      BinaryTreeNode* deleteData(BinaryTreeNode *node, int value) {
+            if(node == NULL) return NULL;
+            if(node->data > value) {
+                  node->left = deleteData(node->left, value);
+            } else if(node->data < value) {
+                  node->right = deleteData(node->right, value);
+            } else {
+                  if((node->left == NULL) || (node->right == NULL)) {
+                        delete node;
+                        return NULL;
+                  } else if(node->left == NULL) {
+                        BinaryTreeNode *temp = node->right;
+                        node->right = NULL;
+                        delete node;
+                        return temp;
+                  } else if(node->right == NULL) {
+                        BinaryTreeNode *temp = node->left;
+                        node->left = NULL;
+                        delete node;
+                        return temp;
+                  } else {
+                        BinaryTreeNode *minNode = node->right;
+                        while(minNode->left != NULL) {
+                              minNode = minNode->left;
+                        }
+                        int rightMin = minNode->data;
+                        node->data = rightMin;
+                        node->right = deleteData(minNode->right, value);
+                        return node;
+                  }
+            }
+      }
+
+      vector<int> populateNextInorder(BinaryTreeNode *node) {
+            if(node == NULL) return vector<int>();
+            vector<int> vResult;
+            vector<int> vLeft = populateNextInorder(node->left);
+            for(int i=0;i<vLeft.size();i++) vResult.push_back(vLeft[i]);
+            vResult.push_back(node->data);
+            vector<int> vRight = populateNextInorder(node->right);
+            for(int i=0;i<vRight.size();i++) vResult.push_back(vRight[i]);
+            return vResult;
+      }
+
       public:
             BST() {
                   root = NULL;
@@ -46,6 +90,9 @@ class BST {
             void insert(int);
             void print();
             bool isElementPresent(int);
+            void deleteData(int);
+            int minimum();
+            void populateNextInorder();
 
 };
 
@@ -76,4 +123,24 @@ void BST::print() {
 
 bool BST::isElementPresent(int value) {
       return isElementPresent(root, value);
+}
+
+void BST::deleteData(int value) {
+      root = deleteData(root, value);
+}
+
+int BST::minimum() {
+      if(root == NULL) return -1;
+      if(root->left == NULL) return root->data;
+      BinaryTreeNode *temp = root->left;
+      while(temp->left != NULL) temp = temp->left;
+      return temp->data;
+}
+
+void BST::populateNextInorder() {
+      vector<int> v = populateNextInorder(root);
+      for(int i = 0; i < v.size(); i++) {
+            if(i != v.size() - 1) cout << v[i] << "->" << v[i+1] << " ";
+            else cout << v[i] << "->-1" << " ";
+      }
 }

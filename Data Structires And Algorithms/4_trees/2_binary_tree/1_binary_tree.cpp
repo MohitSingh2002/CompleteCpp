@@ -35,6 +35,9 @@ bool checkAllLeafNodesAtSameLevel(BinaryTreeNode<int>*);
 int largestSubTreeSum(BinaryTreeNode<int>*);
 vector<int> printPathFromRootToParticularRoot(BinaryTreeNode<int>*, int);
 int lowestCommonAncestor(BinaryTreeNode<int>*, int, int);
+int leftMax(BinaryTreeNode<int>*);
+int rightMin(BinaryTreeNode<int>*);
+bool isBST(BinaryTreeNode<int>*);
 
 // TREE : 1 2 3 4 5 6 7 -1 -1 8 9 -1 -1 11 12 -1 -1 10 -1 -1 -1 -1 13 -1 -1 -1 -1
 int main() {
@@ -179,6 +182,10 @@ int main() {
       // int lca = lowestCommonAncestor(root, 70, 100);
       // if(lca != -1) cout << lca << endl;
       // else cout << "No Common Ancestor" << endl;
+
+      // cout << "Is the given tree a BST ? ";
+      // if(isBST(root)) cout << "YES" << endl;
+      // else cout << "NO" << endl;
 
       delete root;
       
@@ -662,4 +669,22 @@ int lowestCommonAncestor(BinaryTreeNode<int> *root, int a, int b) {
       //       }
       // }
       // for(int i = 0; i < v.size(); i++) cout << v[i] << " ";
+}
+
+int leftMax(BinaryTreeNode<int> *root) {
+      if(root == NULL) return INT_MIN;
+      return max(root->data, max(leftMax(root->left), leftMax(root->right)));
+}
+
+int rightMin(BinaryTreeNode<int> *root) {
+      if(root == NULL) return INT_MAX;
+      return min(root->data, min(rightMin(root->left), rightMin(root->right)));
+}
+
+bool isBST(BinaryTreeNode<int> *root) {
+      if (root == NULL) return true;
+      int maximumLeft = leftMax(root->left);
+      int minimumRight = rightMin(root->right);
+      bool output = ((root->data > maximumLeft) && (root->data <= minimumRight) && isBST(root->left) && isBST(root->right));
+      return output;
 }
