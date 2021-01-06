@@ -10,6 +10,8 @@ It consists of basics, oops concept and dsa.
   2. [Stack](https://github.com/MohitSinghFlutter/CompleteCpp/tree/master/Data%20Structires%20And%20Algorithms/2_stack)
   3. [Queue](https://github.com/MohitSinghFlutter/CompleteCpp/tree/master/Data%20Structires%20And%20Algorithms/3_queue)
   4. [Trees](https://github.com/MohitSinghFlutter/CompleteCpp/tree/master/Data%20Structires%20And%20Algorithms/4_trees)
+  5. [Searching](https://github.com/MohitSingh2002/CompleteCpp/tree/master/Data%20Structires%20And%20Algorithms/5_searching)
+  6. [Sorting](https://github.com/MohitSingh2002/CompleteCpp/tree/master/Data%20Structires%20And%20Algorithms/6_sorting)
   
 * Standard Template Library :-
   1. [vector](https://github.com/MohitSinghFlutter/CompleteCpp/tree/master/Standard%20Template%20Library/1_vector)
