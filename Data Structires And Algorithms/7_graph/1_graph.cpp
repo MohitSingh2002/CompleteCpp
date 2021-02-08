@@ -2,7 +2,11 @@
 using namespace std;
 
 void printDFS(int**, int, int, bool*);
-void printBFS(int**, int, int);
+void printBFS(int**, int, int, bool*);
+void printDFSUnconnectedGraph(int**, int);
+void printBFSUnconnectedGraph(int**, int);
+// bool hasPathDFS(int**, int, int, int, int*);
+// bool hasPathDFS(int**, int, int, int);
 
 int main() {
 
@@ -24,20 +28,24 @@ int main() {
             edges[endingNode][startingNode] = 1;
       }
 
-      bool *visitedVertex = new bool[numberOfNodes];
-      for(int i = 0; i < numberOfNodes; i++) {
-            visitedVertex[i] = false;
-      }
+      // bool *visitedVertex = new bool[numberOfNodes];
+      // for(int i = 0; i < numberOfNodes; i++) {
+      //       visitedVertex[i] = false;
+      // }
 
       cout << "DFS :-" << " ";
-      printDFS(edges, numberOfNodes, 0, visitedVertex);
+      // printDFS(edges, numberOfNodes, 0, visitedVertex);
+      printDFSUnconnectedGraph(edges, numberOfNodes);
       cout << endl;
 
       cout << "BFS :-" << " ";
-      printBFS(edges, numberOfNodes, 0);
+      // printBFS(edges, numberOfNodes, 0, visitedVertex);
+      printBFSUnconnectedGraph(edges, numberOfNodes);
       cout << endl;
 
-      delete[] visitedVertex;
+      // cout << "Is their a path between 1 and 6 ? " << hasPathDFS(edges, numberOfNodes, 1, 6);
+
+      // delete[] visitedVertex;
       for(int i = 0; i < numberOfNodes; i++) delete [] edges[i];
       delete [] edges;
 
@@ -60,11 +68,11 @@ void printDFS(int **edges, int n, int startingVertex, bool *visitedVertex) {
 
 }
 
-void printBFS(int **edges, int n, int startingVertex) {
-      bool *visitedVertex = new bool[n];
-      for(int i=0;i<n;i++) {
-            visitedVertex[i] = false;
-      }
+void printBFS(int **edges, int n, int startingVertex, bool *visitedVertex) {
+      // bool *visitedVertex = new bool[n];
+      // for(int i=0;i<n;i++) {
+      //       visitedVertex[i] = false;
+      // }
       queue<int> pendingVertex;
       pendingVertex.push(startingVertex);
       visitedVertex[startingVertex] = true;
@@ -85,3 +93,51 @@ void printBFS(int **edges, int n, int startingVertex) {
       // Same as level order traversal in Trees.
 
 }
+
+void printDFSUnconnectedGraph(int **edges, int n) {
+      bool *visited = new bool[n];
+      for(int i=0;i<n;i++)
+            visited[i] = false;
+
+      for(int i=0;i<n;i++)
+            if(!visited[i])
+                  printDFS(edges, n, i, visited);
+
+      delete [] visited;
+}
+
+void printBFSUnconnectedGraph(int **edges, int n) {
+      bool *visited = new bool[n];
+      for(int i=0;i<n;i++)
+            visited[i] = false;
+
+      for(int i=0;i<n;i++)
+            if(!visited[i])
+                  printBFS(edges, n, i, visited);
+
+      delete [] visited;
+}
+
+// bool hasPathDFS(int **edges, int n, int startingVertex, int endingVertex, int *visited) {
+//       visited[startingVertex] = true;
+//       visited[endingVertex] = true;
+//       if(edges[startingVertex][endingVertex] == 1) {
+//             return true;
+//       }
+//       for(int i=startingVertex;i<=endingVertex;i++) {
+//             if(startingVertex == i) continue;
+//             if(edges[startingVertex][i] == 1) {
+//                   if(visited[i]) continue;
+//                   return hasPathDFS(edges, n, startingVertex, i, visited);
+//             }
+//       }
+// }
+
+// bool hasPathDFS(int **edges, int n, int startingVertex, int endingVertex) {
+//       bool *visited = new bool[n];
+//       for(int i=0;i<n;i++)
+//             visited[i] = false;
+
+//       return hasPathDFS(edges, n, startingVertex, endingVertex, visited);
+
+// }
